@@ -26,7 +26,7 @@ determine_os () {
     SYSTEM_IS_OLD="false"
     SYSTEM_IS_NEW="false"
     # Un-built systems don't have the approvelist file in place # CORRECTION # Using lsb-release instead #
-    # if [ -f /iiidb/software/shared/approvelist ]
+    # if [ -f /etc/redhat-release ]
     # Show the release on stdout
     cat /etc/redhat-release
     # Figure out if it's a RHEL5 or RHEL6/CENTOS6
@@ -83,7 +83,7 @@ remove_ipv6_hosts () {
 disable_ipv6 () {
 if [[ "$OS_VERSION" == '7' ]] ; then
     echo -n 'Disable IPV6... '
-    if grep -xq "net.ipv6.conf.all.disable_ipv6 = 1" /etc/sysctl.d/ipv6.conf ; then
+    if grep -xq "^net.ipv6.conf.all.disable_ipv6 = 1$" /etc/sysctl.conf ; then
       echo "IPV6 already disbaled" >> $prep_log
        else
        echo " Disabling IPV6 this may take while.."
@@ -103,7 +103,7 @@ echo | tee -a $prep_log
 
 if [[ "$OS_VERSION" == '6' ]] ; then
     echo -n 'Disable IPV6... '
-    if grep -xq "net.ipv6.conf.all.disable_ipv6 = 1" /etc/sysctl.conf ; then
+    if grep -xq "^net.ipv6.conf.all.disable_ipv6 = 1$" /etc/sysctl.conf ; then
       echo "IPV6 already disbaled" >> $prep_log
        else
        echo " Disabling IPV6 on RH6/CentOS this will require a reboot please scheduale with customer if server is not in maintenance already"
