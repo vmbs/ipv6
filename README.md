@@ -1,4 +1,4 @@
-# Disable IPv6
+# Disable IPv6 using a bash script
 
 Step 1:
 Check root or sysops privileges.
